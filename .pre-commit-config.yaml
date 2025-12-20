@@ -1,0 +1,51 @@
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace      # Remove trailing whitespace
+      - id: end-of-file-fixer        # Ensure files end with newline
+      - id: check-yaml               # Validate YAML files
+      - id: check-added-large-files  # Prevent giant files
+      - id: check-toml               # Validate TOML files
+      - id: check-json               # Validate JSON files
+      - id: check-merge-conflict     # Detect merge conflict markers
+      - id: detect-private-key       # Prevent committing private keys
+
+
+  - repo: https://github.com/myint/autoflake
+    rev: v2.2.3
+    hooks:
+      - id: autoflake
+        name: autoflake (clean imports)
+        args: [
+          '--in-place',                    
+          '--remove-all-unused-imports',   
+          '--remove-unused-variables',     
+          '--expand-star-imports'          
+        ]
+
+
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        name: black (code formatting)
+        args: ['--line-length=88', '--target-version=py311']
+
+  
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (import sorting)
+
+
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        name: flake8 (code linting)
+        additional_dependencies: [flake8-django]  
+        args: ['--config=setup.cfg']      
