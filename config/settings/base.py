@@ -25,13 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(env("DEBUG"))
+DEBUG = env.bool("DEBUG", default=False)
+
 
 ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
-THIRD_PARTY_APPS = ["drf-spectacular"]
+PROJECT_APPS = ["users"]
+
+THIRD_PARTY_APPS = ["drf_spectacular", "rest_framework"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     *THIRD_PARTY_APPS,
+    *PROJECT_APPS,
 ]
 
 MIDDLEWARE = [
@@ -53,7 +57,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "config.urls"
+ROOT_URLCONF = "urls"
 
 TEMPLATES = [
     {
@@ -70,7 +74,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
+WSGI_APPLICATION = "wsgi.application"
 
 
 # Database
@@ -134,3 +138,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 from .sub_settings import *  # noqa
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "users.User"
